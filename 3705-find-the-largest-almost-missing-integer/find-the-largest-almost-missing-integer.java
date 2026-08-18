@@ -1,23 +1,34 @@
 class Solution {
     public int largestInteger(int[] nums, int k) {
-       HashMap<Integer,Integer>map = new HashMap<>();
-      
-       int n=nums.length;
-       int maxi=-1;
-       for(int i=0;i<=n-k;i++){
-         HashSet<Integer>set = new HashSet<>();
-        for(int j=i;j<i+k;j++){
-           set.add(nums[j]);
+        int n = nums.length;
+        HashMap<Integer,Integer>map = new HashMap<>();
+        for(int i=0;i<n ;i++){
+            map.put(nums[i],map.getOrDefault(nums[i],0)+1);
         }
-        for(int x : set){
-            map.put(x,map.getOrDefault(x,0)+1);
+        if(k==n){
+             return Arrays.stream(nums).max().getAsInt();
         }
-       }
-       for(Map.Entry<Integer,Integer> entry : map.entrySet() ){
-        if(entry.getValue() == 1){
-            maxi=Math.max(maxi,entry.getKey());
+        if(k==1){
+            int maxVal=-1;
+           for(int i=0;i<n;i++){
+            if(map.get(nums[i])==1 && nums[i]>maxVal){
+                maxVal=nums[i];
+            }
+           }
+           return maxVal; 
         }
-       }
-       return maxi; 
+        n = n-1;
+        if(map.get(nums[0])==1 && map.get(nums[n])>1){
+            return nums[0];
+        }
+        if(map.get(nums[n])==1 && map.get(nums[0])>1){
+            return nums[n];
+        }
+        if(map.get(nums[n])==1 && map.get(nums[0])==1){
+            return Math.max(nums[n],nums[0]);
+        }
+        return -1;
+        
+
     }
 }
