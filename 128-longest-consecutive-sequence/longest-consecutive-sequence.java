@@ -10,14 +10,14 @@ class Solution {
         for (int i = 1; i < nums.length; i++) {
 
             if (nums[i] == nums[i - 1]) {
-                continue;                  // Ignore duplicates
+                continue;                  
             }
 
             if (nums[i] == nums[i - 1] + 1) {
-                current++;                 // Continue sequence
+                current++;                 
             } else {
                 longest = Math.max(longest, current);
-                current = 1;               // Start new sequence
+                current = 1;               
             }
         }
 
