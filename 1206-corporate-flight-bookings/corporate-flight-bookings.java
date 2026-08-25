@@ -1,13 +1,20 @@
 class Solution {
     public int[] corpFlightBookings(int[][] bookings, int n) {
-        int ans [] = new int [n];
-        Arrays.fill(ans,0);
+        int diff [] = new int [n+1];
         int s= bookings.length;
-       for(int i=0;i<s;i++){
-        for(int j=bookings[i][0]-1;j<bookings[i][1];j++){
-            ans[j]+=bookings[i][2];
-        }
+       for(int [] arr : bookings){
+        int l = arr[0];
+        int r = arr[1];
+        int val = arr[2];
+        diff[l-1]+=val;
+        diff[r]-=val;
        }
-       return ans;
+       int [] prefix = new int[n];
+       prefix[0]=diff[0];
+       for(int i=1;i<diff.length-1;i++){
+        prefix[i] = diff[i]+prefix[i-1];
+       }
+       
+       return prefix;
     }
 }
